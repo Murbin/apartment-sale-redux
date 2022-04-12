@@ -1,2 +1,11 @@
 export const HOME = '/';
-export const WIZARD_FORM = '/form';
+export const WIZARD_FORM = '/form/*';
+export const NAME_FORM = '/client-name';
+export const EMAIL_FORM = '/client-email';
+export const ADDRESS_FORM = '/client-address';
+export const FLOOR_FORM = '/apartment-floor';
+export const ZONE_FORM = '/apartment-zone';
+export const PARKING_FORM = '/apartment-parking';
+export const PRICE_FORM = '/apartment-price';
+export const HAS_ELEVATOR_FORM = '/apartment-has-elevator';
+export const RESUME = '/apartment-client-resume';

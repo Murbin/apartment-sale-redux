@@ -12,7 +12,7 @@ export const store = configureStore({
         ignoredActions: ['salesData/updateVal'],
         // Ignore these field paths in all actions
         ignoredActionPaths: ['salesData.username'],
-        // Ignore these paths in the state
+        // // Ignore these paths in the state
         ignoredPaths: ['salesData.username']
       }
     })
