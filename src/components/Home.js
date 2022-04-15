@@ -24,11 +24,34 @@ const Home = () => {
   };
 
   return (
-    <>
-      <button aria-label="test" onClick={() => nextStep()}>
+    <div
+      style={{
+        background: 'white',
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <button
+        style={{
+          background: '#6085FC',
+          border: 0,
+          color: 'white',
+          fontSize: 27,
+
+          borderRadius: 100,
+          width: 300,
+          cursor: 'pointer',
+          fontFamily: 'monospace'
+        }}
+        aria-label="test"
+        onClick={() => nextStep()}
+      >
         Vender
       </button>
-    </>
+    </div>
   );
 };
 export default Home;

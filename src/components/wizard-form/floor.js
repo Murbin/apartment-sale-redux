@@ -16,7 +16,7 @@ const Floor = ({ errors, touched, handleChange }) => {
     dispatch(updateVal({ key, val }));
   }, 250);
   const floor = useSelector(selectFloor);
-  console.log('floor', floor);
+
   return (
     <div
       style={{
@@ -26,8 +26,24 @@ const Floor = ({ errors, touched, handleChange }) => {
         alignItems: 'center'
       }}
     >
-      <div>
-        <p>Floor</p>
+      <div
+        style={{
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <p
+          style={{
+            fontSize: 22,
+            margin: '0px 0px 10px 0px'
+          }}
+        >
+          Floor
+        </p>
         <Field
           as="select"
           name="floor"
@@ -36,8 +52,13 @@ const Floor = ({ errors, touched, handleChange }) => {
             updateValFromStore('floor', val);
           }}
           style={{
-            borderColor: errors?.floor && touched.floor ? 'red' : 'inherit',
-            marginBottom: 20
+            paddingLeft: 10,
+            height: 40,
+            fontSize: 20,
+            width: 60,
+            borderRadius: 4,
+            borderColor: errors?.email && touched.email ? 'red' : 'black',
+            marginBottom: 40
           }}
           values={floor}
         >
@@ -45,12 +66,41 @@ const Floor = ({ errors, touched, handleChange }) => {
             <option key={idx}>{e}</option>
           ))}
         </Field>
-        <br />
-        <Link to={ADDRESS_FORM}>Previous</Link>
-        <br />
-        <Link to={ZONE_FORM}>Next</Link>
+        <div>
+          {' '}
+          <Link
+            style={{
+              marginRight: 20,
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={ADDRESS_FORM}
+          >
+            Previous
+          </Link>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={ZONE_FORM}
+          >
+            Next
+          </Link>
+        </div>
       </div>
-      <div>
+      <div
+        style={{
+          background: '#6085FC',
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Resume />
       </div>
     </div>

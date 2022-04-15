@@ -15,7 +15,7 @@ const Email = ({ errors, touched, handleChange }) => {
     dispatch(updateVal({ key, val }));
   }, 250);
   const email = useSelector(selectEmail);
-  console.log('email', email);
+
   return (
     <div
       style={{
@@ -25,7 +25,26 @@ const Email = ({ errors, touched, handleChange }) => {
         alignItems: 'center'
       }}
     >
-      <div>
+      <div
+        style={{
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <p
+          style={{
+            fontSize: 22,
+            width: 320,
+            textAlign: 'left',
+            margin: '0px 0px 10px 0px'
+          }}
+        >
+          Email
+        </p>
         <Field
           type="email"
           name="email"
@@ -35,17 +54,51 @@ const Email = ({ errors, touched, handleChange }) => {
             updateValFromStore('email', val);
           }}
           style={{
-            borderColor: errors?.email && touched.email ? 'red' : 'inherit',
+            paddingLeft: 10,
+            height: 40,
+            fontSize: 20,
+            width: 300,
+            borderRadius: 4,
+            borderColor: errors?.email && touched.email ? 'red' : 'black',
             marginBottom: 20
           }}
           values={email}
         />
-        <br />
-        <Link to={NAME_FORM}>Previous</Link>
-        <br />
-        <Link to={ADDRESS_FORM}>Next</Link>
+        <div>
+          {' '}
+          <Link
+            style={{
+              marginRight: 20,
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={NAME_FORM}
+          >
+            Previous
+          </Link>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={ADDRESS_FORM}
+          >
+            Next
+          </Link>
+        </div>
       </div>
-      <div>
+      <div
+        style={{
+          background: '#6085FC',
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Resume />
       </div>
     </div>

@@ -35,13 +35,12 @@ const WizardForm = () => {
           has: 'No',
           covered: 'Si'
         },
-        price: 0,
+        price: undefined,
         image: null,
         hasElevator: 'No'
       }}
       validationSchema={schema}
-      onSubmit={(values, { setSubmitting }) => {
-        alert(JSON.stringify(values, null, 2));
+      onSubmit={({ setSubmitting }) => {
         setSubmitting(false);
       }}
     >
@@ -71,7 +70,7 @@ const WizardForm = () => {
                 path={ROUTES.HAS_ELEVATOR_FORM}
                 element={<HasElevator {...props} />}
               />
-              <Route path={ROUTES.RESUME} element={<Resume {...props} />} />
+              <Route path={ROUTES.RESUME} element={<Resume />} />
             </Routes>
           </Form>
         );

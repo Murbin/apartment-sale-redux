@@ -25,28 +25,93 @@ const Price = ({ errors, touched, handleChange }) => {
         alignItems: 'center'
       }}
     >
-      <div>
-        <p>Price</p>
-        <Field
-          type="number"
-          name="price"
-          placeholder="1.000.000 USD"
-          onChange={(val) => {
-            handleChange(val);
-            updateValFromStore('price', val);
-          }}
+      <div
+        style={{
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <p
           style={{
-            borderColor: errors?.price && touched.price ? 'red' : 'inherit',
+            fontSize: 22,
+            textAlign: 'left',
+            margin: '0px 0px 10px 0px'
+          }}
+        >
+          Price
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
             marginBottom: 20
           }}
-          values={price}
-        />
-        <br />
-        <Link to={PARKING_FORM}>Previous</Link>
-        <br />
-        <Link to={HAS_ELEVATOR_FORM}>Next</Link>
+        >
+          <Field
+            type="number"
+            name="price"
+            placeholder="1.000.000 USD"
+            onChange={(val) => {
+              handleChange(val);
+              updateValFromStore('price', val);
+            }}
+            style={{
+              paddingLeft: 10,
+              height: 40,
+              fontSize: 20,
+              width: 200,
+              borderRadius: 4,
+              borderColor:
+                errors?.username && touched.username ? 'red' : 'black'
+            }}
+            values={price}
+          />
+          <p style={{ marginLeft: 10, fontSize: 20, fontWeight: 'bold' }}>
+            USD
+          </p>
+        </div>
+
+        <div>
+          {' '}
+          <Link
+            style={{
+              marginRight: 20,
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={PARKING_FORM}
+          >
+            Previous
+          </Link>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={HAS_ELEVATOR_FORM}
+          >
+            Next
+          </Link>
+        </div>
       </div>
-      <div>
+      <div
+        style={{
+          background: '#6085FC',
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Resume />
       </div>
     </div>

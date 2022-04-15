@@ -1,16 +1,19 @@
 import React from 'react';
-import { EMAIL_FORM } from '../../constants/index';
+import { EMAIL_FORM, HOME } from '../../constants/index';
 import { useDebouncedCallback } from 'use-debounce';
 import { updateVal } from '../../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { selectName } from '../../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Field } from 'formik';
+import { Field, useFormikContext } from 'formik';
 import Resume from './resume';
 
-const Name = ({ errors, touched, handleChange }) => {
+const Name = ({ errors, handleChange, setSubmitting }) => {
+  console.log('errors', errors);
+  const { submitForm } = useFormikContext();
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const updateValFromStore = useDebouncedCallback((key, val) => {
     dispatch(updateVal({ key, val }));
   }, 250);
@@ -25,7 +28,26 @@ const Name = ({ errors, touched, handleChange }) => {
         alignItems: 'center'
       }}
     >
-      <div>
+      <div
+        style={{
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <p
+          style={{
+            fontSize: 22,
+            width: 320,
+            textAlign: 'left',
+            margin: '0px 0px 10px 0px'
+          }}
+        >
+          Name
+        </p>
         <Field
           type="text"
           name="username"
@@ -35,16 +57,55 @@ const Name = ({ errors, touched, handleChange }) => {
             updateValFromStore('username', val);
           }}
           style={{
-            borderColor:
-              errors?.username && touched.username ? 'red' : 'inherit',
-            marginBottom: 20
+            paddingLeft: 10,
+            height: 40,
+            fontSize: 20,
+            width: 300,
+            borderRadius: 4,
+            borderColor: 'black'
           }}
           values={username}
         />
-        <br />
-        <Link to={EMAIL_FORM}>Next</Link>
+        {errors?.username && (
+          <p style={{ margin: 0, color: 'red' }}>Error test</p>
+        )}
+
+        <div style={{ marginTop: 20 }}>
+          {' '}
+          <Link
+            style={{
+              marginRight: 20,
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={HOME}
+          >
+            Previous
+          </Link>
+          <Link
+            onClick={() => submitForm()}
+            style={{
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={errors?.username || !username ? '#' : EMAIL_FORM}
+          >
+            Next
+          </Link>
+        </div>
       </div>
-      <div>
+      <div
+        style={{
+          background: '#6085FC',
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Resume />
       </div>
     </div>

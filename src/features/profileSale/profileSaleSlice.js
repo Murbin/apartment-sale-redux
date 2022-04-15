@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  currentStep: 0,
   saleStarted: false,
   username: '',
   email: '',
@@ -15,8 +16,8 @@ const initialState = {
     has: 'No',
     covered: 'No'
   },
-  price: 0,
-  image: null,
+  price: undefined,
+  image: undefined,
   hasElevator: 'No'
 };
 
@@ -40,7 +41,6 @@ export const salesDataSlice = createSlice({
       }
     },
     updateValSelect(state, { payload: { key, val, child } }) {
-      console.log();
       state[key][child] = val.target.value;
     }
   }

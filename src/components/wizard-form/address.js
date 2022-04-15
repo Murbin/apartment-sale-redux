@@ -25,7 +25,26 @@ const Address = ({ errors, touched, handleChange }) => {
         alignItems: 'center'
       }}
     >
-      <div>
+      <div
+        style={{
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <p
+          style={{
+            fontSize: 22,
+            width: '72%',
+            textAlign: 'left',
+            margin: '0px 0px 10px 0px'
+          }}
+        >
+          Address
+        </p>
         <Field
           type="text"
           name="address"
@@ -35,17 +54,51 @@ const Address = ({ errors, touched, handleChange }) => {
             updateValFromStore('address', val);
           }}
           style={{
-            borderColor: errors?.address && touched.address ? 'red' : 'inherit',
-            marginBottom: 20
+            paddingLeft: 10,
+            height: 40,
+            fontSize: 20,
+            width: '70%',
+            borderRadius: 4,
+            borderColor: errors?.email && touched.email ? 'red' : 'black',
+            marginBottom: 40
           }}
           values={address}
         />
-        <br />
-        <Link to={EMAIL_FORM}>Previous</Link>
-        <br />
-        <Link to={FLOOR_FORM}>Next</Link>
+        <div>
+          {' '}
+          <Link
+            style={{
+              marginRight: 20,
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={EMAIL_FORM}
+          >
+            Previous
+          </Link>
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: '#6085FC',
+              fontWeight: 'bold'
+            }}
+            to={FLOOR_FORM}
+          >
+            Next
+          </Link>
+        </div>
       </div>
-      <div>
+      <div
+        style={{
+          background: '#6085FC',
+          height: '100vh',
+          width: '50%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Resume />
       </div>
     </div>
