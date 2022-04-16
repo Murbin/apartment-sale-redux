@@ -1,8 +1,7 @@
 import React from 'react';
-import { selectResume } from '../../features/profileSale/profileSaleSlice';
+import { selectResume } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { HOME } from '../../constants/index';
+import { hasParkingCovered, dollarUS } from '../utils/helper';
 
 const Resume = () => {
   const { username, email, address, floor, zone, parking, hasElevator, price } =
@@ -84,8 +83,7 @@ const Resume = () => {
           color: 'black'
         }}
       >
-        Has Parking ? : {parking.has === 'Si' ? 'Yes' : 'Dont Have Parking'}{' '}
-        {parking.covered === 'Si' ? '. It has covered' : ''}
+        Has Parking ? :{hasParkingCovered(parking?.has, parking?.covered)}
       </p>
       <p
         style={{
@@ -94,7 +92,7 @@ const Resume = () => {
           color: 'black'
         }}
       >
-        Price : {price}
+        Price : {price ? dollarUS.format(price) : ''}
       </p>
       <p
         style={{
@@ -103,19 +101,8 @@ const Resume = () => {
           color: 'black'
         }}
       >
-        Has Elevator ? : {hasElevator}
+        Has an elevator ? : {hasElevator}
       </p>
-      {/* <Link
-        style={{
-          marginRight: 20,
-          textDecoration: 'none',
-          color: '#6085FC',
-          fontWeight: 'bold'
-        }}
-        to={HOME}
-      >
-        Send
-      </Link> */}
     </div>
   );
 };

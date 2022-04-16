@@ -1,21 +1,23 @@
 import React from 'react';
-import { ADDRESS_FORM, ZONE_FORM } from '../../constants/index';
-import { floors } from '../../constants/helper';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../../features/profileSale/profileSaleSlice';
+import {
+  selectHasElevator,
+  updateVal
+} from '../features/profileSale/profileSaleSlice';
+import { PRICE_FORM, RESUME } from '../utils/constants';
 import { useDispatch } from 'react-redux';
-import { selectFloor } from '../../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
+import { options, validateEmpty } from '../utils/helper';
+import { Link } from 'react-router-dom';
 import Resume from './resume';
 
-const Floor = ({ errors, touched, handleChange }) => {
+const HasElevator = ({ errors, validateField, handleChange }) => {
   const dispatch = useDispatch();
-  const updateValFromStore = useDebouncedCallback((key, val) => {
-    dispatch(updateVal({ key, val }));
+  const updateValFromStore = useDebouncedCallback((key, val, child) => {
+    dispatch(updateVal({ key, val, child }));
   }, 250);
-  const floor = useSelector(selectFloor);
+  const hasElevator = useSelector(selectHasElevator);
 
   return (
     <div
@@ -42,31 +44,38 @@ const Floor = ({ errors, touched, handleChange }) => {
             margin: '0px 0px 10px 0px'
           }}
         >
-          Floor
+          Has an elevator?
         </p>
         <Field
           as="select"
-          name="floor"
+          name="hasElevator"
           onChange={(val) => {
+            console.log('val', val);
             handleChange(val);
-            updateValFromStore('floor', val);
+            updateValFromStore('hasElevator', val);
           }}
+          validate={validateEmpty}
           style={{
             paddingLeft: 10,
             height: 40,
             fontSize: 20,
-            width: 60,
+            width: 100,
             borderRadius: 4,
-            borderColor: errors?.email && touched.email ? 'red' : 'black',
-            marginBottom: 40
+            borderColor: 'black'
           }}
-          values={floor}
+          values={hasElevator}
         >
-          {floors.map((e, idx) => (
+          <option disabled={hasElevator ? true : false} value={undefined}>
+            Select
+          </option>
+          {options.map((e, idx) => (
             <option key={idx}>{e}</option>
           ))}
         </Field>
-        <div>
+        {errors?.hasElevator && (
+          <p style={{ margin: 0, color: 'red' }}>{errors?.hasElevator}</p>
+        )}
+        <div style={{ marginTop: 20 }}>
           {' '}
           <Link
             style={{
@@ -75,17 +84,20 @@ const Floor = ({ errors, touched, handleChange }) => {
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={ADDRESS_FORM}
+            to={PRICE_FORM}
           >
             Previous
           </Link>
           <Link
+            onClick={() => {
+              validateField('hasElevator');
+            }}
             style={{
               textDecoration: 'none',
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={ZONE_FORM}
+            to={errors?.hasElevator || !hasElevator ? '#' : RESUME}
           >
             Next
           </Link>
@@ -107,4 +119,4 @@ const Floor = ({ errors, touched, handleChange }) => {
   );
 };
 
-export default Floor;
+export default HasElevator;

@@ -1,20 +1,21 @@
 import React from 'react';
-import { NAME_FORM, ADDRESS_FORM } from '../../constants/index';
+import { HAS_ELEVATOR_FORM, PARKING_FORM } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../../features/profileSale/profileSaleSlice';
+import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
-import { selectEmail } from '../../features/profileSale/profileSaleSlice';
+import { selectPrice } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
+import { validateEmpty } from '../utils/helper';
 
-const Email = ({ errors, touched, handleChange }) => {
+const Price = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
     dispatch(updateVal({ key, val }));
   }, 250);
-  const email = useSelector(selectEmail);
+  const price = useSelector(selectPrice);
 
   return (
     <div
@@ -38,33 +39,48 @@ const Email = ({ errors, touched, handleChange }) => {
         <p
           style={{
             fontSize: 22,
-            width: 320,
             textAlign: 'left',
             margin: '0px 0px 10px 0px'
           }}
         >
-          Email
+          Price
         </p>
-        <Field
-          type="email"
-          name="email"
-          placeholder="adam@gmail.com"
-          onChange={(val) => {
-            handleChange(val);
-            updateValFromStore('email', val);
-          }}
+        <div
           style={{
-            paddingLeft: 10,
-            height: 40,
-            fontSize: 20,
-            width: 300,
-            borderRadius: 4,
-            borderColor: errors?.email && touched.email ? 'red' : 'black',
-            marginBottom: 20
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
           }}
-          values={email}
-        />
-        <div>
+        >
+          <Field
+            type="number"
+            name="price"
+            placeholder="$100,000,000.00"
+            onChange={(val) => {
+              handleChange(val);
+              updateValFromStore('price', val);
+            }}
+            validate={validateEmpty}
+            style={{
+              paddingLeft: 10,
+              height: 40,
+              fontSize: 20,
+              width: 200,
+              borderRadius: 4,
+              borderColor:
+                errors?.username && touched.username ? 'red' : 'black'
+            }}
+            values={price}
+          />
+          <p style={{ marginLeft: 10, fontSize: 20, fontWeight: 'bold' }}>
+            USD
+          </p>
+        </div>
+        {errors?.price && (
+          <p style={{ margin: 0, color: 'red' }}>{errors?.price}</p>
+        )}
+        <div style={{ marginTop: 20 }}>
           {' '}
           <Link
             style={{
@@ -73,17 +89,20 @@ const Email = ({ errors, touched, handleChange }) => {
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={NAME_FORM}
+            to={PARKING_FORM}
           >
             Previous
           </Link>
           <Link
+            onClick={() => {
+              validateField('price');
+            }}
             style={{
               textDecoration: 'none',
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={ADDRESS_FORM}
+            to={errors?.price || !price ? '#' : HAS_ELEVATOR_FORM}
           >
             Next
           </Link>
@@ -105,4 +124,4 @@ const Email = ({ errors, touched, handleChange }) => {
   );
 };
 
-export default Email;
+export default Price;

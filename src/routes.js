@@ -1,45 +1,38 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import * as yup from 'yup';
-import * as ROUTES from '../../constants/index';
-import Home from '../Home';
-import Name from '../wizard-form/name';
-import Email from '../wizard-form/email';
-import Address from '../wizard-form/address';
-import Floor from '../wizard-form/floor';
-import Zone from '../wizard-form/zone';
-import Parking from '../wizard-form/parking';
-import Price from '../wizard-form/price';
-import HasElevator from '../wizard-form/hasElevator';
-import Resume from '../wizard-form/resume';
+import * as ROUTES from '../src/utils/constants';
+import Home from './pages/home';
+import Name from './pages/name';
+import Email from './pages/email';
+import Address from './pages/address';
+import Floor from './pages/floor';
+import Zone from './pages/zone';
+import Parking from './pages/parking';
+import Price from './pages/price';
+import HasElevator from './pages/hasElevator';
+import Resume from './pages/resume';
 
-const schema = yup.object().shape({
-  username: yup.string().required().nullable(false),
-  email: yup.string().email().required().nullable(false)
-});
-
-const WizardForm = () => {
+const RoutesForm = () => {
   return (
     <Formik
       initialValues={{
         username: '',
         email: '',
-        floor: 0,
+        floor: undefined,
         zone: {
           bbq: false,
           comunal: false,
           entertaiment: false
         },
         parking: {
-          has: 'No',
-          covered: 'Si'
+          has: '',
+          covered: 'No'
         },
         price: undefined,
-        image: null,
-        hasElevator: 'No'
+        image: undefined,
+        hasElevator: undefined
       }}
-      validationSchema={schema}
       onSubmit={({ setSubmitting }) => {
         setSubmitting(false);
       }}
@@ -79,4 +72,4 @@ const WizardForm = () => {
   );
 };
 
-export default WizardForm;
+export default RoutesForm;

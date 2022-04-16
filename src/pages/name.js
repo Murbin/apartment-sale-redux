@@ -1,23 +1,23 @@
 import React from 'react';
+import { EMAIL_FORM, HOME } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
 import {
-  selectHasElevator,
-  updateVal
-} from '../../features/profileSale/profileSaleSlice';
-import { PRICE_FORM, RESUME } from '../../constants/index';
+  updateVal,
+  selectName
+} from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Field } from 'formik';
-import { options } from '../../constants/helper';
 import { Link } from 'react-router-dom';
+import { Field } from 'formik';
 import Resume from './resume';
+import { validateEmpty } from '../utils/helper';
 
-const HasElevator = ({ errors, touched, handleChange }) => {
+const Name = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
-  const updateValFromStore = useDebouncedCallback((key, val, child) => {
-    dispatch(updateVal({ key, val, child }));
+  const updateValFromStore = useDebouncedCallback((key, val) => {
+    dispatch(updateVal({ key, val }));
   }, 250);
-  const hasElevator = useSelector(selectHasElevator);
+  const username = useSelector(selectName);
 
   return (
     <div
@@ -41,35 +41,36 @@ const HasElevator = ({ errors, touched, handleChange }) => {
         <p
           style={{
             fontSize: 22,
+            width: 320,
+            textAlign: 'left',
             margin: '0px 0px 10px 0px'
           }}
         >
-          Has Elevator?
+          Name
         </p>
         <Field
-          as="select"
-          name="hasElevator"
+          type="text"
+          name="username"
+          placeholder="Adams Smith"
           onChange={(val) => {
-            console.log('val', val);
             handleChange(val);
-            updateValFromStore('hasElevator', val);
+            updateValFromStore('username', val);
           }}
+          validate={validateEmpty}
           style={{
             paddingLeft: 10,
             height: 40,
             fontSize: 20,
-            width: 60,
+            width: 300,
             borderRadius: 4,
-            borderColor: errors?.email && touched.email ? 'red' : 'black',
-            marginBottom: 40
+            borderColor: 'black'
           }}
-          values={hasElevator}
-        >
-          {options.map((e, idx) => (
-            <option key={idx}>{e}</option>
-          ))}
-        </Field>
-        <div>
+          values={username}
+        />
+        {errors?.username && (
+          <p style={{ margin: 0, color: 'red' }}>{errors?.username}</p>
+        )}
+        <div style={{ marginTop: 20 }}>
           {' '}
           <Link
             style={{
@@ -78,17 +79,20 @@ const HasElevator = ({ errors, touched, handleChange }) => {
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={PRICE_FORM}
+            to={HOME}
           >
             Previous
           </Link>
           <Link
+            onClick={() => {
+              validateField('username');
+            }}
             style={{
               textDecoration: 'none',
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={RESUME}
+            to={errors?.username || !username ? '#' : EMAIL_FORM}
           >
             Next
           </Link>
@@ -110,4 +114,4 @@ const HasElevator = ({ errors, touched, handleChange }) => {
   );
 };
 
-export default HasElevator;
+export default Name;

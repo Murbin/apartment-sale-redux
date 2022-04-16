@@ -1,9 +1,9 @@
 import React from 'react';
-import { FLOOR_FORM, PARKING_FORM } from '../../constants/index';
+import { FLOOR_FORM, PARKING_FORM } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../../features/profileSale/profileSaleSlice';
+import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
-import { selectZone } from '../../features/profileSale/profileSaleSlice';
+import { selectZone } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field } from 'formik';

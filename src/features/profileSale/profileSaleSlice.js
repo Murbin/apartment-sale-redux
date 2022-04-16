@@ -6,19 +6,19 @@ const initialState = {
   username: '',
   email: '',
   address: '',
-  floor: 0,
+  floor: undefined,
   zone: {
     bbq: false,
     comunal: false,
     entertainment: false
   },
   parking: {
-    has: 'No',
+    has: '',
     covered: 'No'
   },
   price: undefined,
   image: undefined,
-  hasElevator: 'No'
+  hasElevator: undefined
 };
 
 export const salesDataSlice = createSlice({

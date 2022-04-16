@@ -1,18 +1,18 @@
 import React from 'react';
-import { ZONE_FORM, PRICE_FORM } from '../../constants/index';
+import { ZONE_FORM, PRICE_FORM } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
 import {
   updateValSelect,
   selectParking
-} from '../../features/profileSale/profileSaleSlice';
+} from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field } from 'formik';
-import { options } from '../../constants/helper';
+import { options, validateEmpty } from '../utils/helper';
 import Resume from './resume';
 
-const Parking = ({ errors, touched, handleChange }) => {
+const Parking = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val, child) => {
     dispatch(updateValSelect({ key, val, child }));
@@ -44,7 +44,7 @@ const Parking = ({ errors, touched, handleChange }) => {
             margin: '0px 0px 10px 0px'
           }}
         >
-          Has Parking?
+          Has Parking ?
         </p>
         <Field
           as="select"
@@ -53,31 +53,36 @@ const Parking = ({ errors, touched, handleChange }) => {
             handleChange(val);
             updateValFromStore('parking', val, 'has');
           }}
+          validate={validateEmpty}
           style={{
             paddingLeft: 10,
             height: 40,
             fontSize: 20,
-            width: 60,
+            width: 100,
             borderRadius: 4,
-            borderColor: errors?.email && touched.email ? 'red' : 'black',
-            marginBottom: 40
+            borderColor: 'black'
           }}
-          values={parking.has}
+          values={parking?.has}
         >
+          <option disabled={parking?.has ? true : false} value={undefined}>
+            Select
+          </option>
           {options.map((e, idx) => (
             <option key={idx}>{e}</option>
           ))}
         </Field>
-
-        {parking?.has === 'Si' && (
+        {errors?.has && (
+          <p style={{ margin: 0, color: 'red' }}>{errors?.has}</p>
+        )}
+        {parking?.has === 'Yes' && (
           <>
             <p
               style={{
                 fontSize: 22,
-                margin: '0px 0px 10px 0px'
+                margin: '13px 0px 10px 0px'
               }}
             >
-              Covered Parking?
+              It is Covered ?
             </p>
             <Field
               as="select"
@@ -90,7 +95,7 @@ const Parking = ({ errors, touched, handleChange }) => {
                 paddingLeft: 10,
                 height: 40,
                 fontSize: 20,
-                width: 60,
+                width: 100,
                 borderRadius: 4,
                 borderColor: errors?.email && touched.email ? 'red' : 'black',
                 marginBottom: 40
@@ -103,7 +108,7 @@ const Parking = ({ errors, touched, handleChange }) => {
             </Field>
           </>
         )}
-        <div>
+        <div style={{ marginTop: 20 }}>
           {' '}
           <Link
             style={{
@@ -117,12 +122,15 @@ const Parking = ({ errors, touched, handleChange }) => {
             Previous
           </Link>
           <Link
+            onClick={() => {
+              validateField('has');
+            }}
             style={{
               textDecoration: 'none',
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={PRICE_FORM}
+            to={errors?.parking?.has || !parking?.has ? '#' : PRICE_FORM}
           >
             Next
           </Link>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import WizardForm from './components/wizard-form';
+import RoutesForm from './routes';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <WizardForm />
+      <RoutesForm />
     </BrowserRouter>
   );
 };

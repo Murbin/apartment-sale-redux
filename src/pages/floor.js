@@ -1,23 +1,21 @@
 import React from 'react';
-import { EMAIL_FORM, HOME } from '../../constants/index';
+import { ADDRESS_FORM, ZONE_FORM } from '../utils/constants';
+import { floors, validateEmpty } from '../utils/helper';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../../features/profileSale/profileSaleSlice';
+import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
-import { selectName } from '../../features/profileSale/profileSaleSlice';
+import { selectFloor } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Field, useFormikContext } from 'formik';
+import { Field } from 'formik';
 import Resume from './resume';
 
-const Name = ({ errors, handleChange, setSubmitting }) => {
-  console.log('errors', errors);
-  const { submitForm } = useFormikContext();
+const Floor = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const updateValFromStore = useDebouncedCallback((key, val) => {
     dispatch(updateVal({ key, val }));
   }, 250);
-  const username = useSelector(selectName);
+  const floor = useSelector(selectFloor);
 
   return (
     <div
@@ -41,35 +39,39 @@ const Name = ({ errors, handleChange, setSubmitting }) => {
         <p
           style={{
             fontSize: 22,
-            width: 320,
-            textAlign: 'left',
             margin: '0px 0px 10px 0px'
           }}
         >
-          Name
+          Floor
         </p>
         <Field
-          type="text"
-          name="username"
-          placeholder="Adams Smith"
+          as="select"
+          name="floor"
           onChange={(val) => {
             handleChange(val);
-            updateValFromStore('username', val);
+            updateValFromStore('floor', val);
           }}
+          validate={validateEmpty}
           style={{
             paddingLeft: 10,
             height: 40,
             fontSize: 20,
-            width: 300,
+            width: 100,
             borderRadius: 4,
             borderColor: 'black'
           }}
-          values={username}
-        />
-        {errors?.username && (
-          <p style={{ margin: 0, color: 'red' }}>Error test</p>
+          values={floor}
+        >
+          <option disabled={floor ? true : false} value={undefined}>
+            Select
+          </option>
+          {floors.map((e, idx) => (
+            <option key={idx}>{e}</option>
+          ))}
+        </Field>
+        {errors?.floor && (
+          <p style={{ margin: 0, color: 'red' }}>{errors?.floor}</p>
         )}
-
         <div style={{ marginTop: 20 }}>
           {' '}
           <Link
@@ -79,18 +81,20 @@ const Name = ({ errors, handleChange, setSubmitting }) => {
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={HOME}
+            to={ADDRESS_FORM}
           >
             Previous
           </Link>
           <Link
-            onClick={() => submitForm()}
+            onClick={() => {
+              validateField('floor');
+            }}
             style={{
               textDecoration: 'none',
               color: '#6085FC',
               fontWeight: 'bold'
             }}
-            to={errors?.username || !username ? '#' : EMAIL_FORM}
+            to={errors?.floor || !floor ? '#' : ZONE_FORM}
           >
             Next
           </Link>
@@ -112,4 +116,4 @@ const Name = ({ errors, handleChange, setSubmitting }) => {
   );
 };
 
-export default Name;
+export default Floor;
