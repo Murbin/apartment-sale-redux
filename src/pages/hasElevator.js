@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Field } from 'formik';
 import { options, validateEmpty } from '../utils/helper';
-import { Link } from 'react-router-dom';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
 

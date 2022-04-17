@@ -12,9 +12,6 @@ const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
       dispatch(nextStep({ activeStep }));
     }
   };
-  console.log('errors', errors);
-  console.log('errors[name]', errors[name]);
-  console.log('value', value);
 
   return (
     <div

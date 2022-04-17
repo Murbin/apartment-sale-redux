@@ -10,8 +10,9 @@ import Floor from './pages/floor';
 import Zone from './pages/zone';
 import Parking from './pages/parking';
 import Price from './pages/price';
+import Image from './pages/image';
 import HasElevator from './pages/hasElevator';
-import Resume from './pages/resume';
+import FinalReview from './pages/finalReview';
 
 const RoutesForm = () => {
   return (
@@ -59,11 +60,12 @@ const RoutesForm = () => {
                 element={<Parking {...props} />}
               />
               <Route path={ROUTES.PRICE_FORM} element={<Price {...props} />} />
+              <Route path={ROUTES.IMAGE_FORM} element={<Image {...props} />} />
               <Route
                 path={ROUTES.HAS_ELEVATOR_FORM}
                 element={<HasElevator {...props} />}
               />
-              <Route path={ROUTES.RESUME} element={<Resume />} />
+              <Route path={ROUTES.RESUME} element={<FinalReview />} />
             </Routes>
           </Form>
         );

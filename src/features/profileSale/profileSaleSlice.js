@@ -45,12 +45,20 @@ export const salesDataSlice = createSlice({
     },
     nextStep(state, { payload: { activeStep } }) {
       state[activeStep] = Number(state[activeStep]) + 1;
+    },
+    updateImage(state, { payload: { key, val } }) {
+      state[key] = val;
     }
   }
 });
 
-export const { setInitSale, updateVal, updateValSelect, nextStep } =
-  salesDataSlice.actions;
+export const {
+  setInitSale,
+  updateVal,
+  updateImage,
+  updateValSelect,
+  nextStep
+} = salesDataSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -63,6 +71,7 @@ export const selectFloor = (state) => state.salesData.floor;
 export const selectZone = (state) => state.salesData.zone;
 export const selectParking = (state) => state.salesData.parking;
 export const selectPrice = (state) => state.salesData.price;
+export const selectImage = (state) => state.salesData.image;
 export const selectHasElevator = (state) => state.salesData.hasElevator;
 export const selectResume = (state) => state.salesData;
 export const selectActiveStep = (state) => state.salesData.activeStep;

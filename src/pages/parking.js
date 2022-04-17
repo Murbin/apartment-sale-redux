@@ -97,7 +97,7 @@ const Parking = ({ errors, touched, handleChange, validateField }) => {
                 fontSize: 20,
                 width: 100,
                 borderRadius: 4,
-                borderColor: errors?.email && touched.email ? 'red' : 'black',
+                borderColor: 'black',
                 marginBottom: 40
               }}
               values={parking.covered}
