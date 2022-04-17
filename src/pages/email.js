@@ -1,14 +1,16 @@
 import React from 'react';
 import { NAME_FORM, ADDRESS_FORM } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
-import { selectEmail } from '../features/profileSale/profileSaleSlice';
+import {
+  selectEmail,
+  updateVal
+} from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmail } from '../utils/helper';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Email = ({ errors, validateField, handleChange }) => {
   const dispatch = useDispatch();
@@ -68,46 +70,16 @@ const Email = ({ errors, validateField, handleChange }) => {
         {errors?.email && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.email}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={NAME_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('email');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.email || !email ? '#' : ADDRESS_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={NAME_FORM}
+          nxt={ADDRESS_FORM}
+          name={'email'}
+          errors={errors}
+          value={email}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

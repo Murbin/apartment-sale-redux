@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentStep: 0,
+  activeStep: 0,
   saleStarted: false,
   username: '',
   email: '',
@@ -42,11 +42,14 @@ export const salesDataSlice = createSlice({
     },
     updateValSelect(state, { payload: { key, val, child } }) {
       state[key][child] = val.target.value;
+    },
+    nextStep(state, { payload: { activeStep } }) {
+      state[activeStep] = Number(state[activeStep]) + 1;
     }
   }
 });
 
-export const { setInitSale, updateVal, updateValSelect } =
+export const { setInitSale, updateVal, updateValSelect, nextStep } =
   salesDataSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -62,5 +65,6 @@ export const selectParking = (state) => state.salesData.parking;
 export const selectPrice = (state) => state.salesData.price;
 export const selectHasElevator = (state) => state.salesData.hasElevator;
 export const selectResume = (state) => state.salesData;
+export const selectActiveStep = (state) => state.salesData.activeStep;
 
 export default salesDataSlice.reducer;

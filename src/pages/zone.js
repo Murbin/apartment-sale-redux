@@ -5,9 +5,9 @@ import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { selectZone } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Zone = ({ errors, touched, values, handleChange }) => {
   const dispatch = useDispatch();
@@ -142,43 +142,16 @@ const Zone = ({ errors, touched, values, handleChange }) => {
             />
           </div>
         </div>
-        <div>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={FLOOR_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={PARKING_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={FLOOR_FORM}
+          nxt={PARKING_FORM}
+          name={'zone'}
+          errors={errors}
+          value={'zone'}
+          validate={() => {}}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

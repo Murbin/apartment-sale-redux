@@ -2,6 +2,7 @@ import React from 'react';
 import { selectResume } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { hasParkingCovered, dollarUS } from '../utils/helper';
+import Steps from '../components/stepper';
 
 const Resume = () => {
   const { username, email, address, floor, zone, parking, hasElevator, price } =
@@ -10,99 +11,119 @@ const Resume = () => {
   return (
     <div
       style={{
-        background: '#6085FC',
-        color: 'white',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh'
+        width: '50%',
+        height: '100vh',
+        background: '#6085FC'
       }}
     >
-      <p
+      {' '}
+      <Steps />
+      <div
         style={{
-          fontFamily: 'monospace',
-          fontSize: 22,
-          color: 'black'
+          marginTop: 30,
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        Resume{' '}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Name : {username}
-      </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 22,
+            color: 'black'
+          }}
+        >
+          Resume{' '}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Name : {username}
+        </p>
 
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Email : {email}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Address : {address}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Floor : {floor}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Zones : {zone.bbq && 'Bbq'} {zone.comunal && ' Comunal'}
-        {zone.entertainment && ' Entertainment'}
-        {!zone.bbq && !zone.entertainment && !zone.comunal ? 'NA' : ''}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Has Parking ? :{hasParkingCovered(parking?.has, parking?.covered)}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Price : {price ? dollarUS.format(price) : ''}
-      </p>
-      <p
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 17,
-          color: 'black'
-        }}
-      >
-        Has an elevator ? : {hasElevator}
-      </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Email : {email}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Address : {address}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Floor : {floor}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Zones : {zone.bbq && 'Bbq'} {zone.comunal && ' Comunal'}
+          {zone.entertainment && ' Entertainment'}
+          {!zone.bbq && !zone.entertainment && !zone.comunal ? 'NA' : ''}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Has Parking ? :{hasParkingCovered(parking?.has, parking?.covered)}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Price : {price ? dollarUS.format(price) : ''}
+        </p>
+        <p
+          style={{
+            fontFamily: 'monospace',
+            margin: 15,
+            fontSize: 17,
+            color: 'black'
+          }}
+        >
+          Has an elevator ? : {hasElevator}
+        </p>
+      </div>
     </div>
   );
 };

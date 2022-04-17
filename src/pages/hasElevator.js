@@ -11,6 +11,7 @@ import { Field } from 'formik';
 import { options, validateEmpty } from '../utils/helper';
 import { Link } from 'react-router-dom';
 import Resume from './resume';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const HasElevator = ({ errors, validateField, handleChange }) => {
   const dispatch = useDispatch();
@@ -75,46 +76,16 @@ const HasElevator = ({ errors, validateField, handleChange }) => {
         {errors?.hasElevator && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.hasElevator}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={PRICE_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('hasElevator');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.hasElevator || !hasElevator ? '#' : RESUME}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={PRICE_FORM}
+          nxt={RESUME}
+          name={'hasElevator'}
+          errors={errors}
+          value={hasElevator}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

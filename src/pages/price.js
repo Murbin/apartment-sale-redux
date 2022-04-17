@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Price = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -80,46 +81,16 @@ const Price = ({ errors, touched, handleChange, validateField }) => {
         {errors?.price && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.price}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={PARKING_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('price');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.price || !price ? '#' : HAS_ELEVATOR_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={PARKING_FORM}
+          nxt={HAS_ELEVATOR_FORM}
+          name={'price'}
+          errors={errors}
+          value={price}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

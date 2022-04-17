@@ -6,9 +6,9 @@ import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { selectFloor } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Floor = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -72,46 +72,16 @@ const Floor = ({ errors, handleChange, validateField }) => {
         {errors?.floor && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.floor}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={ADDRESS_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('floor');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.floor || !floor ? '#' : ZONE_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={ADDRESS_FORM}
+          nxt={ZONE_FORM}
+          name={'floor'}
+          errors={errors}
+          value={floor}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

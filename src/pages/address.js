@@ -5,10 +5,10 @@ import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { selectAddress } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Address = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -61,53 +61,23 @@ const Address = ({ errors, touched, handleChange, validateField }) => {
             fontSize: 20,
             width: '70%',
             borderRadius: 4,
-            borderColor: errors?.email && touched.email ? 'red' : 'black'
+            borderColor: 'black'
           }}
           values={address}
         />
         {errors?.address && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.address}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={EMAIL_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('address');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.address || !address ? '#' : FLOOR_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={EMAIL_FORM}
+          nxt={FLOOR_FORM}
+          name={'address'}
+          errors={errors}
+          value={address}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

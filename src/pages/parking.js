@@ -7,10 +7,10 @@ import {
 } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import { options, validateEmpty } from '../utils/helper';
 import Resume from './resume';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Parking = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -108,46 +108,16 @@ const Parking = ({ errors, touched, handleChange, validateField }) => {
             </Field>
           </>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={ZONE_FORM}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('has');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.parking?.has || !parking?.has ? '#' : PRICE_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={ZONE_FORM}
+          nxt={PRICE_FORM}
+          name={'has'}
+          errors={errors}
+          value={parking?.has}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

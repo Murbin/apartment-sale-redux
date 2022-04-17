@@ -7,10 +7,10 @@ import {
 } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
+import PreviousNextStep from '../components/nextPreviousStep';
 
 const Name = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -70,46 +70,16 @@ const Name = ({ errors, handleChange, validateField }) => {
         {errors?.username && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.username}</p>
         )}
-        <div style={{ marginTop: 20 }}>
-          {' '}
-          <Link
-            style={{
-              marginRight: 20,
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={HOME}
-          >
-            Previous
-          </Link>
-          <Link
-            onClick={() => {
-              validateField('username');
-            }}
-            style={{
-              textDecoration: 'none',
-              color: '#6085FC',
-              fontWeight: 'bold'
-            }}
-            to={errors?.username || !username ? '#' : EMAIL_FORM}
-          >
-            Next
-          </Link>
-        </div>
+        <PreviousNextStep
+          prev={HOME}
+          nxt={EMAIL_FORM}
+          name={'username'}
+          errors={errors}
+          value={username}
+          validate={validateField}
+        />
       </div>
-      <div
-        style={{
-          background: '#6085FC',
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Resume />
-      </div>
+      <Resume />
     </div>
   );
 };

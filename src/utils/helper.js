@@ -16,7 +16,6 @@ export const validateEmail = (value) => {
 };
 
 export const validateEmpty = (value) => {
-  console.log('validateEmpty value', value);
   let error;
   if (!value) {
     error = `Required field`;
