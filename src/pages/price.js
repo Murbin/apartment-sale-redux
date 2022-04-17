@@ -12,7 +12,7 @@ const Price = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
     dispatch(updateVal({ key, val }));
-  }, 250);
+  }, 20);
   const price = useSelector(selectPrice);
 
   const localStringToNumber = (s) => {
@@ -28,7 +28,7 @@ const Price = ({ errors, handleChange, validateField }) => {
       : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const onBlur = (e) => {
+  const onBlur = useDebouncedCallback((e) => {
     var options = {
       currency: 'USD',
       style: 'currency',
@@ -38,11 +38,11 @@ const Price = ({ errors, handleChange, validateField }) => {
     e.target.value = price
       ? localStringToNumber(price).toLocaleString(undefined, options)
       : '';
-  };
+  }, 100);
 
-  const onfocus = (e) => {
+  const onfocus = useDebouncedCallback((e) => {
     e.target.value = price ? localStringToNumber(price) : '';
-  };
+  }, 50);
 
   return (
     <div
@@ -72,46 +72,30 @@ const Price = ({ errors, handleChange, validateField }) => {
         >
           Price
         </p>
-        <div
+
+        <input
+          // name="price"
+          placeholder="$100,000,000.00"
+          id="coin"
+          type="currency"
+          // value={price}
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
+            paddingLeft: 10,
+            height: 40,
+            fontSize: 20,
+            minWidth: 300,
+            borderRadius: 4,
+            borderColor: 'black'
           }}
-        >
-          <input
-            // name="price"
-            placeholder="$100,000,000.00"
-            id="coin"
-            type="currency"
-            // value={price}
-            style={{
-              paddingLeft: 10,
-              height: 40,
-              fontSize: 20,
-              minWidth: 200,
-              borderRadius: 4,
-              borderColor: 'black'
-            }}
-            onChange={(val) => {
-              handleChange(val);
-              updateValFromStore('price', val);
-            }}
-            onFocus={(e) => {
-              onfocus(e);
-            }}
-            onBlur={(e) => onBlur(e)}
-          />
-          <p
-            style={{
-              fontSize: 22,
-              marginLeft: 10,
-              fontWeight: 'bold'
-            }}
-          >
-            US$
-          </p>
-        </div>
+          onChange={(val) => {
+            handleChange(val);
+            updateValFromStore('price', val);
+          }}
+          onFocus={(e) => {
+            onfocus(e);
+          }}
+          onBlur={(e) => onBlur(e)}
+        />
 
         {errors?.price && (
           <p style={{ margin: 0, color: 'red' }}>{errors?.price}</p>
