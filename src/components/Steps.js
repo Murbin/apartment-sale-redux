@@ -1,10 +1,15 @@
 import Generic from '../pages/generic';
+import GenericSelect from '../pages/genericSelect';
+import GenericCheckbox from '../pages/genericCheckbox';
 import * as ROUTES from '../utils/constants';
+import { floors } from '../utils/helper';
 import {
   updateVal,
   selectName,
   selectEmail,
-  selectAddress
+  selectAddress,
+  selectFloor,
+  selectZone
 } from '../features/profileSale/profileSaleSlice';
 import { validateEmpty, validateEmail } from '../utils/helper';
 
@@ -52,7 +57,65 @@ export const Steps = {
         type: 'text',
         validate: validateEmpty,
         description: 'REQUESTS THE ADDRESS OF THE USER OWNER OF THE APARTMENT'
+      },
+      {
+        _uid: '3',
+        component: GenericSelect,
+        path: ROUTES.FLOOR_FORM,
+        name: 'floor',
+        getData: selectFloor,
+        saveData: updateVal,
+        previous: ROUTES.ADDRESS_FORM,
+        next: ROUTES.ZONE_FORM,
+        placeholder: undefined,
+        type: 'select',
+        validate: validateEmpty,
+        options: floors,
+        choice: null,
+        description: 'REQUESTS THE FLLOR OF THE APARTMENT',
+        subItem: false,
+        items: ['has', 'covered']
+      },
+      {
+        _uid: '4',
+        component: GenericCheckbox,
+        path: ROUTES.ZONE_FORM,
+        name: 'zone',
+        getData: selectZone,
+        saveData: updateVal,
+        previous: ROUTES.FLOOR_FORM,
+        next: ROUTES.PARKING_FORM,
+        placeholder: undefined,
+        type: 'checkbox',
+        validate: undefined,
+        options: [
+          { id: 0, section: 'bbq' },
+          { id: 1, section: 'comunal' },
+          { id: 1, section: 'entertainment' }
+        ],
+        choice: null,
+        description: 'REQUESTS THE FLLOR OF THE APARTMENT'
       }
+      // {
+      //   _uid: '5',
+      //   component: GenericSelect,
+      //   path: ROUTES.PARKING_FORM,
+      //   name: 'zone',
+      //   getData: selectZone,
+      //   saveData: updateVal,
+      //   previous: ROUTES.FLOOR_FORM,
+      //   next: ROUTES.PARKING_FORM,
+      //   placeholder: undefined,
+      //   type: 'checkbox',
+      //   validate: undefined,
+      //   options: [
+      //     { id: 0, section: 'bbq' },
+      //     { id: 1, section: 'comunal' },
+      //     { id: 1, section: 'entertainment' }
+      //   ],
+      //   choice: null,
+      //   description: 'REQUESTS THE SECTIONS OF THE APARTMENT'
+      // }
     ]
   }
 };

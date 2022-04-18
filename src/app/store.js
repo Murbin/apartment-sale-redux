@@ -8,16 +8,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore these action types
         ignoredActions: [
           'salesData/updateVal',
           'salesData/updateValSelect',
           'salesData/updateImage'
         ]
-        // Ignore these field paths in all actions
-        // ignoredActionPaths: ['salesData.username'],
-        // // Ignore these paths in the state
-        // ignoredPaths: ['salesData.username']
       }
     })
 });

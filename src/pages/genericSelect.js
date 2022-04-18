@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Field } from 'formik';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
@@ -10,9 +11,9 @@ import {
   LabelInput,
   Error
 } from '../assets/styles/style';
-import { styleInput } from '../utils/helper';
+import { styleSelect } from '../utils/helper';
 
-const Generic = ({
+const GenericSelect = ({
   name,
   errors,
   handleChange,
@@ -21,9 +22,9 @@ const Generic = ({
   saveData,
   previous,
   next,
-  placeholder,
   type,
-  validate
+  validate,
+  options
 }) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
@@ -34,19 +35,25 @@ const Generic = ({
   return (
     <ContainerMain>
       <ContainerInput>
-        <LabelInput>{name.toLocaleUpperCase()}</LabelInput>
+        <LabelInput>Floor</LabelInput>
         <Field
-          type={type}
+          as={type}
           name={name}
-          placeholder={placeholder}
           onChange={(val) => {
             handleChange(val);
             updateValFromStore(name, val);
           }}
           validate={validate}
-          style={styleInput}
+          style={styleSelect}
           values={data}
-        />
+        >
+          <option disabled={data ? true : false} value={undefined}>
+            {type}
+          </option>
+          {options.map((e, idx) => (
+            <option key={idx}>{e}</option>
+          ))}
+        </Field>
         {errors[name] && <Error>{errors[name]}</Error>}
         <PreviousNextStep
           prev={previous}
@@ -62,4 +69,4 @@ const Generic = ({
   );
 };
 
-export default Generic;
+export default GenericSelect;

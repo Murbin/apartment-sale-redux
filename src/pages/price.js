@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
 import { IMAGE_FORM, PARKING_FORM } from '../utils/constants';
+import {
+  localStringToNumber,
+  configUSD,
+  handleValidate
+} from '../utils/helper';
 import { useDebouncedCallback } from 'use-debounce';
 import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
@@ -23,49 +28,24 @@ const Price = ({ errors, handleChange, validateField }) => {
   }, 20);
   const price = useSelector(selectPrice);
 
-  const localStringToNumber = (s) => {
-    return Number(String(s).replace(/[^0-9.-]+/g, ''));
-  };
-
   useEffect(() => {
     document.getElementById('coin').value = price
-      ? localStringToNumber(price).toLocaleString(undefined, {
-          currency: 'USD',
-          style: 'currency'
-        })
+      ? localStringToNumber(price).toLocaleString(undefined, configUSD)
       : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onBlur = useDebouncedCallback((e) => {
-    handleValidate({ target: { value: price } });
-    var options = {
-      currency: 'USD',
-      style: 'currency',
-      currencyDisplay: 'symbol'
-    };
+    handleValidate({ target: { value: price } }, setErrors);
 
     e.target.value = price
-      ? localStringToNumber(price).toLocaleString(undefined, options)
+      ? localStringToNumber(price).toLocaleString(undefined, configUSD)
       : '';
   }, 100);
 
   const onfocus = useDebouncedCallback((e) => {
     e.target.value = price ? localStringToNumber(price) : '';
   }, 50);
-
-  const handleValidate = (e) => {
-    let numeric = e.target.value;
-    let regex = /^-?\d+\.?\d*$/;
-    if (!e.target.value) {
-      setErrors({ price: 'Required field' });
-      return;
-    }
-    if (!regex.test(numeric)) {
-      setErrors({ price: 'Field not valid' });
-      return;
-    }
-  };
 
   return (
     <ContainerMain>
