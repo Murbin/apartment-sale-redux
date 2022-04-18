@@ -14,14 +14,15 @@ export const Hero = styled.div`
 
 export const Button = styled.button`
   background: #6085fc;
-  border: 2px solid white;
+  border-width: 0px;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   border-radius: 100px;
-  width: 250px;
+  width: 300px;
   cursor: pointer;
-  margin-top: 150px;
+  margin-top: 350px;
+  padding: 5px;
 `;
 
 export const ContainerMain = styled.div`

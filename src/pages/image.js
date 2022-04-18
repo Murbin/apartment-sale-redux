@@ -8,12 +8,7 @@ import { PRICE_FORM, HAS_ELEVATOR_FORM } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
-import {
-  ContainerMain,
-  BackgroundDepartment,
-  LabelInput,
-  Error
-} from '../assets/styles/style';
+import { ContainerMain, BackgroundDepartment } from '../assets/styles/style';
 
 const Image = ({ errors, values, handleChange }) => {
   const dispatch = useDispatch();

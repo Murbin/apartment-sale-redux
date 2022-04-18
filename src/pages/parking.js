@@ -18,7 +18,7 @@ import {
   Error
 } from '../assets/styles/style';
 
-const Parking = ({ errors, touched, handleChange, validateField }) => {
+const Parking = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val, child) => {
     dispatch(updateValSelect({ key, val, child }));

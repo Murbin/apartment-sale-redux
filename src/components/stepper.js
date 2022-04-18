@@ -1,11 +1,15 @@
 import Stepper from 'react-stepper-horizontal';
-import { selectActiveStep } from '../features/profileSale/profileSaleSlice';
+import { selectStepsCompleted } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import { ContainerStepper } from '../assets/styles/style';
 import { items } from '../utils/helper';
 
 const Steps = () => {
-  const activeStep = useSelector(selectActiveStep);
+  const stepsCompleted = useSelector(selectStepsCompleted);
+
+  let values = Object.values(stepsCompleted);
+  let activeStep;
+  for (let i = 0; i < values.length; i++) if (values[i]) activeStep = i;
 
   return (
     <ContainerStepper>

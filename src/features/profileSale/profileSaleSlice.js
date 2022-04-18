@@ -18,7 +18,18 @@ const initialState = {
   },
   price: undefined,
   image: undefined,
-  hasElevator: undefined
+  hasElevator: undefined,
+  stepsCompleted: {
+    username: true,
+    email: false,
+    address: false,
+    floor: false,
+    zone: false,
+    has: false,
+    price: false,
+    image: false,
+    hasElevator: false
+  }
 };
 
 export const salesDataSlice = createSlice({
@@ -46,6 +57,10 @@ export const salesDataSlice = createSlice({
     nextStep(state, { payload: { activeStep } }) {
       state[activeStep] = Number(state[activeStep]) + 1;
     },
+    stepCompleted(state, { payload: { stepsCompleted, name } }) {
+      console.log('state[key][child] ', state[stepsCompleted][name]);
+      state[stepsCompleted][name] = true;
+    },
     updateImage(state, { payload: { key, val } }) {
       state[key] = val;
     }
@@ -57,7 +72,8 @@ export const {
   updateVal,
   updateImage,
   updateValSelect,
-  nextStep
+  nextStep,
+  stepCompleted
 } = salesDataSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -75,5 +91,6 @@ export const selectImage = (state) => state.salesData.image;
 export const selectHasElevator = (state) => state.salesData.hasElevator;
 export const selectResume = (state) => state.salesData;
 export const selectActiveStep = (state) => state.salesData.activeStep;
+export const selectStepsCompleted = (state) => state.salesData.stepsCompleted;
 
 export default salesDataSlice.reducer;

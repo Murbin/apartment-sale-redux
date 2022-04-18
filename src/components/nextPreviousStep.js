@@ -1,5 +1,8 @@
 import React from 'react';
-import { nextStep } from '../features/profileSale/profileSaleSlice';
+import {
+  nextStep,
+  stepCompleted
+} from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +13,8 @@ const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
     const activeStep = 'activeStep';
     if (!errors?.value && value) {
       dispatch(nextStep({ activeStep }));
+      const stepsCompleted = 'stepsCompleted';
+      dispatch(stepCompleted({ stepsCompleted, name }));
     }
   };
 
