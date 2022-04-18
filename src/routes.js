@@ -3,9 +3,6 @@ import { Formik, Form } from 'formik';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import * as ROUTES from '../src/utils/constants';
 import Home from './pages/home';
-import Name from './pages/name';
-import Email from './pages/email';
-import Address from './pages/address';
 import Floor from './pages/floor';
 import Zone from './pages/zone';
 import Parking from './pages/parking';
@@ -13,6 +10,7 @@ import Price from './pages/price';
 import Image from './pages/image';
 import HasElevator from './pages/hasElevator';
 import FinalReview from './pages/finalReview';
+import { Steps } from '../src/components/Steps';
 
 const RoutesForm = () => {
   return (
@@ -47,12 +45,27 @@ const RoutesForm = () => {
                 path={ROUTES.WIZARD_FORM}
                 element={<Navigate replace to={ROUTES.NAME_FORM} />}
               />
-              <Route path={ROUTES.NAME_FORM} element={<Name {...props} />} />
-              <Route path={ROUTES.EMAIL_FORM} element={<Email {...props} />} />
-              <Route
-                path={ROUTES.ADDRESS_FORM}
-                element={<Address {...props} />}
-              />
+              {/* From here three steps were refactored to a generic component from a json. It's not over due to time */}
+              {Steps.content.body.map((e, key) => {
+                return (
+                  <Route
+                    key={key}
+                    path={e.path}
+                    element={React.createElement(e.component, {
+                      ...props,
+                      name: e.name,
+                      getData: e.getData,
+                      saveData: e.saveData,
+                      previous: e.previous,
+                      next: e.next,
+                      placeholder: e.placeholder,
+                      type: e.type,
+                      validate: e.validate
+                    })}
+                  />
+                );
+              })}
+
               <Route path={ROUTES.FLOOR_FORM} element={<Floor {...props} />} />
               <Route path={ROUTES.ZONE_FORM} element={<Zone {...props} />} />
               <Route

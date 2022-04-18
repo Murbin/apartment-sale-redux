@@ -5,6 +5,7 @@ import {
 } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ContainerMain, MarginTop } from '../assets/styles/style';
 
 const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
   const dispatch = useDispatch();
@@ -19,15 +20,8 @@ const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div style={{ marginTop: 20 }}>
+    <ContainerMain>
+      <MarginTop>
         <Link
           style={{
             marginRight: 20,
@@ -53,8 +47,8 @@ const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
         >
           Next
         </Link>
-      </div>
-    </div>
+      </MarginTop>
+    </ContainerMain>
   );
 };
 

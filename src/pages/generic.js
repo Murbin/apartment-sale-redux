@@ -1,12 +1,6 @@
 import React from 'react';
-import { EMAIL_FORM, HOME } from '../utils/constants';
 import { useDebouncedCallback } from 'use-debounce';
-import {
-  updateVal,
-  selectName
-} from '../features/profileSale/profileSaleSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
@@ -18,26 +12,38 @@ import {
   Error
 } from '../assets/styles/style';
 
-const Name = ({ errors, handleChange, validateField }) => {
+const Generic = ({
+  name,
+  errors,
+  handleChange,
+  validateField,
+  getData,
+  saveData,
+  previous,
+  next,
+  placeholder,
+  type,
+  validate
+}) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
-    dispatch(updateVal({ key, val }));
+    dispatch(saveData({ key, val }));
   }, 250);
-  const username = useSelector(selectName);
+  const data = useSelector(getData);
 
   return (
     <ContainerMain>
       <ContainerInput>
-        <LabelInput>Name</LabelInput>
+        <LabelInput>{name.toLocaleUpperCase()}</LabelInput>
         <Field
-          type="text"
-          name="username"
-          placeholder="Adams Smith"
+          type={type}
+          name={name}
+          placeholder={placeholder}
           onChange={(val) => {
             handleChange(val);
-            updateValFromStore('username', val);
+            updateValFromStore(name, val);
           }}
-          validate={validateEmpty}
+          validate={validate}
           style={{
             paddingLeft: 10,
             height: 40,
@@ -46,15 +52,15 @@ const Name = ({ errors, handleChange, validateField }) => {
             borderRadius: 4,
             borderColor: 'black'
           }}
-          values={username}
+          values={data}
         />
-        {errors?.username && <Error>{errors?.username}</Error>}
+        {errors[name] && <Error>{errors[name]}</Error>}
         <PreviousNextStep
-          prev={HOME}
-          nxt={EMAIL_FORM}
-          name={'username'}
+          prev={previous}
+          nxt={next}
+          name={name}
           errors={errors}
-          value={username}
+          value={data}
           validate={validateField}
         />
       </ContainerInput>
@@ -63,4 +69,4 @@ const Name = ({ errors, handleChange, validateField }) => {
   );
 };
 
-export default Name;
+export default Generic;

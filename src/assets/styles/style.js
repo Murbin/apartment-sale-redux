@@ -167,3 +167,7 @@ export const BackgroundDepartment = styled.div`
     height: 100vh;
   }
 `;
+
+export const MarginTop = styled.div`
+  margin-top: 20px;
+`;
