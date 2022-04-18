@@ -7,8 +7,10 @@ import { selectPrice } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import { useFormikContext } from 'formik';
 
 const Price = ({ errors, handleChange, validateField }) => {
+  const { setErrors } = useFormikContext();
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
     dispatch(updateVal({ key, val }));
@@ -28,13 +30,15 @@ const Price = ({ errors, handleChange, validateField }) => {
       : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const onBlur = useDebouncedCallback((e) => {
+    handleValidate({ target: { value: price } });
     var options = {
       currency: 'USD',
       style: 'currency',
       currencyDisplay: 'symbol'
     };
-
+    console.log('me formatea onblur');
     e.target.value = price
       ? localStringToNumber(price).toLocaleString(undefined, options)
       : '';
@@ -43,6 +47,19 @@ const Price = ({ errors, handleChange, validateField }) => {
   const onfocus = useDebouncedCallback((e) => {
     e.target.value = price ? localStringToNumber(price) : '';
   }, 50);
+
+  const handleValidate = (e) => {
+    let numeric = e.target.value;
+    let regex = /^-?\d+\.?\d*$/;
+    if (!e.target.value) {
+      setErrors({ price: 'Required field' });
+      return;
+    }
+    if (!regex.test(numeric)) {
+      setErrors({ price: 'Field not valid' });
+      return;
+    }
+  };
 
   return (
     <div
@@ -78,7 +95,6 @@ const Price = ({ errors, handleChange, validateField }) => {
           placeholder="$100,000,000.00"
           id="coin"
           type="currency"
-          // value={price}
           style={{
             paddingLeft: 10,
             height: 40,
@@ -91,9 +107,7 @@ const Price = ({ errors, handleChange, validateField }) => {
             handleChange(val);
             updateValFromStore('price', val);
           }}
-          onFocus={(e) => {
-            onfocus(e);
-          }}
+          onFocus={(e) => onfocus(e)}
           onBlur={(e) => onBlur(e)}
         />
 

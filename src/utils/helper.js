@@ -41,5 +41,6 @@ export const hasParkingCovered = (has, covered) => {
 
 export const dollarUS = Intl.NumberFormat('en-US', {
   style: 'currency',
-  currency: 'USD'
+  currency: 'USD',
+  currencyDisplay: 'symbol'
 });

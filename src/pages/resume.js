@@ -44,7 +44,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -55,7 +56,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -65,7 +67,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -75,7 +78,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -85,7 +89,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -97,7 +102,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -107,7 +113,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >
@@ -117,7 +124,8 @@ const Resume = () => {
           style={{
             fontFamily: 'monospace',
             margin: 15,
-            fontSize: 17,
+            fontSize: 19,
+            fontWeight: 'light',
             color: 'black'
           }}
         >

@@ -4,7 +4,7 @@ import {
   selectHasElevator,
   updateVal
 } from '../features/profileSale/profileSaleSlice';
-import { PRICE_FORM, RESUME } from '../utils/constants';
+import { IMAGE_FORM, RESUME } from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Field } from 'formik';
@@ -76,7 +76,7 @@ const HasElevator = ({ errors, validateField, handleChange }) => {
           <p style={{ margin: 0, color: 'red' }}>{errors?.hasElevator}</p>
         )}
         <PreviousNextStep
-          prev={PRICE_FORM}
+          prev={IMAGE_FORM}
           nxt={RESUME}
           name={'hasElevator'}
           errors={errors}

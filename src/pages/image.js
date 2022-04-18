@@ -4,7 +4,7 @@ import {
   selectImage,
   updateImage
 } from '../features/profileSale/profileSaleSlice';
-import { PRICE_FORM, RESUME } from '../utils/constants';
+import { PRICE_FORM, HAS_ELEVATOR_FORM } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
@@ -66,7 +66,7 @@ const Image = ({ errors, values, handleChange }) => {
 
         <PreviousNextStep
           prev={PRICE_FORM}
-          nxt={RESUME}
+          nxt={HAS_ELEVATOR_FORM}
           name={'image'}
           errors={errors}
           value={image}
