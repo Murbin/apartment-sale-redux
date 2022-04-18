@@ -8,6 +8,12 @@ import { PRICE_FORM, HAS_ELEVATOR_FORM } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  BackgroundDepartment,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Image = ({ errors, values, handleChange }) => {
   const dispatch = useDispatch();
@@ -25,28 +31,8 @@ const Image = ({ errors, values, handleChange }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          backgroundImage: `url(${image})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover'
-        }}
-      >
+    <ContainerMain>
+      <BackgroundDepartment img={image}>
         <p
           style={{
             fontSize: 22,
@@ -72,9 +58,9 @@ const Image = ({ errors, values, handleChange }) => {
           value={image}
           validate={() => {}}
         />
-      </div>
+      </BackgroundDepartment>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

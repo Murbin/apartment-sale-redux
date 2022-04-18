@@ -9,6 +9,12 @@ import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Address = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -16,36 +22,11 @@ const Address = ({ errors, touched, handleChange, validateField }) => {
     dispatch(updateVal({ key, val }));
   }, 250);
   const address = useSelector(selectAddress);
-
+  console.log('address', address);
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            width: '72%',
-            textAlign: 'left',
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Address
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Address</LabelInput>
         <Field
           type="text"
           name="address"
@@ -65,9 +46,7 @@ const Address = ({ errors, touched, handleChange, validateField }) => {
           }}
           values={address}
         />
-        {errors?.address && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.address}</p>
-        )}
+        {errors?.address && <Error>{errors?.address}</Error>}
         <PreviousNextStep
           prev={EMAIL_FORM}
           nxt={FLOOR_FORM}
@@ -76,9 +55,9 @@ const Address = ({ errors, touched, handleChange, validateField }) => {
           value={address}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

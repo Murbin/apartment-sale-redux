@@ -8,6 +8,12 @@ import { useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
 import { useFormikContext } from 'formik';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Price = ({ errors, handleChange, validateField }) => {
   const { setErrors } = useFormikContext();
@@ -38,7 +44,7 @@ const Price = ({ errors, handleChange, validateField }) => {
       style: 'currency',
       currencyDisplay: 'symbol'
     };
-    console.log('me formatea onblur');
+
     e.target.value = price
       ? localStringToNumber(price).toLocaleString(undefined, options)
       : '';
@@ -62,36 +68,10 @@ const Price = ({ errors, handleChange, validateField }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            textAlign: 'left',
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Price
-        </p>
-
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Price</LabelInput>
         <input
-          // name="price"
           placeholder="$100,000,000.00"
           id="coin"
           type="currency"
@@ -111,9 +91,7 @@ const Price = ({ errors, handleChange, validateField }) => {
           onBlur={(e) => onBlur(e)}
         />
 
-        {errors?.price && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.price}</p>
-        )}
+        {errors?.price && <Error>{errors?.price}</Error>}
         <PreviousNextStep
           prev={PARKING_FORM}
           nxt={IMAGE_FORM}
@@ -122,9 +100,9 @@ const Price = ({ errors, handleChange, validateField }) => {
           value={price}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

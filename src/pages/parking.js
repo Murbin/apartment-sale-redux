@@ -11,6 +11,12 @@ import { Field } from 'formik';
 import { options, validateEmpty } from '../utils/helper';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Parking = ({ errors, touched, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -20,32 +26,9 @@ const Parking = ({ errors, touched, handleChange, validateField }) => {
   const parking = useSelector(selectParking);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Has Parking ?
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Has Parking ?</LabelInput>
         <Field
           as="select"
           name="has"
@@ -71,19 +54,10 @@ const Parking = ({ errors, touched, handleChange, validateField }) => {
             <option key={idx}>{e}</option>
           ))}
         </Field>
-        {errors?.has && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.has}</p>
-        )}
+        {errors?.has && <Error>{errors?.has}</Error>}
         {parking?.has === 'Yes' && (
           <>
-            <p
-              style={{
-                fontSize: 22,
-                margin: '13px 0px 10px 0px'
-              }}
-            >
-              It is Covered ?
-            </p>
+            <LabelInput>It is Covered ?</LabelInput>
             <Field
               as="select"
               name="covered"
@@ -116,9 +90,9 @@ const Parking = ({ errors, touched, handleChange, validateField }) => {
           value={parking?.has}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

@@ -11,6 +11,12 @@ import { Field } from 'formik';
 import { options, validateEmpty } from '../utils/helper';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const HasElevator = ({ errors, validateField, handleChange }) => {
   const dispatch = useDispatch();
@@ -20,32 +26,9 @@ const HasElevator = ({ errors, validateField, handleChange }) => {
   const hasElevator = useSelector(selectHasElevator);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Has an elevator?
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Has an elevator?</LabelInput>
         <Field
           as="select"
           name="hasElevator"
@@ -72,9 +55,7 @@ const HasElevator = ({ errors, validateField, handleChange }) => {
             <option key={idx}>{e}</option>
           ))}
         </Field>
-        {errors?.hasElevator && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.hasElevator}</p>
-        )}
+        {errors?.hasElevator && <Error>{errors?.hasElevator}</Error>}
         <PreviousNextStep
           prev={IMAGE_FORM}
           nxt={RESUME}
@@ -83,9 +64,9 @@ const HasElevator = ({ errors, validateField, handleChange }) => {
           value={hasElevator}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

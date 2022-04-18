@@ -11,6 +11,12 @@ import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmail } from '../utils/helper';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Email = ({ errors, validateField, handleChange }) => {
   const dispatch = useDispatch();
@@ -20,34 +26,9 @@ const Email = ({ errors, validateField, handleChange }) => {
   const email = useSelector(selectEmail);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            width: 320,
-            textAlign: 'left',
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Email
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Email</LabelInput>
         <Field
           type="email"
           name="email"
@@ -67,9 +48,7 @@ const Email = ({ errors, validateField, handleChange }) => {
           }}
           values={email}
         />
-        {errors?.email && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.email}</p>
-        )}
+        {errors?.email && <Error>{errors?.email}</Error>}
         <PreviousNextStep
           prev={NAME_FORM}
           nxt={ADDRESS_FORM}
@@ -78,9 +57,9 @@ const Email = ({ errors, validateField, handleChange }) => {
           value={email}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

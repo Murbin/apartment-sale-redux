@@ -11,6 +11,12 @@ import { Field } from 'formik';
 import Resume from './resume';
 import { validateEmpty } from '../utils/helper';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Name = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -20,34 +26,9 @@ const Name = ({ errors, handleChange, validateField }) => {
   const username = useSelector(selectName);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            width: 320,
-            textAlign: 'left',
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Name
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Name</LabelInput>
         <Field
           type="text"
           name="username"
@@ -67,9 +48,7 @@ const Name = ({ errors, handleChange, validateField }) => {
           }}
           values={username}
         />
-        {errors?.username && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.username}</p>
-        )}
+        {errors?.username && <Error>{errors?.username}</Error>}
         <PreviousNextStep
           prev={HOME}
           nxt={EMAIL_FORM}
@@ -78,9 +57,9 @@ const Name = ({ errors, handleChange, validateField }) => {
           value={username}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

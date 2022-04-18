@@ -8,6 +8,13 @@ import { useSelector } from 'react-redux';
 import { Field } from 'formik';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  ContainerZone,
+  ItemZone,
+  LabelInput
+} from '../assets/styles/style';
 
 const Zone = ({ errors, touched, values, handleChange }) => {
   const dispatch = useDispatch();
@@ -17,52 +24,12 @@ const Zone = ({ errors, touched, values, handleChange }) => {
   const zone = useSelector(selectZone);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '80%',
-            margin: '0 auto'
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              width: '100%'
-            }}
-          >
+    <ContainerMain>
+      <ContainerInput>
+        <ContainerZone>
+          <ItemZone>
             {' '}
-            <p
-              style={{
-                fontSize: 20,
-                margin: '0px 0px 10px 0px'
-              }}
-            >
-              Zone BBQ
-            </p>
+            <LabelInput>Bbq</LabelInput>
             <Field
               type="checkbox"
               name="bbq"
@@ -70,31 +37,12 @@ const Zone = ({ errors, touched, values, handleChange }) => {
                 handleChange(val);
                 updateValFromStore('zone', val, 'bbq');
               }}
-              style={{
-                borderColor: errors?.floor && touched.floor ? 'red' : 'inherit',
-                marginBottom: 20
-              }}
+              style={{ marginBottom: 20 }}
               values={zone.bbq ? 'true' : 'false'}
             />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              width: '100%'
-            }}
-          >
-            <p
-              style={{
-                fontSize: 20,
-                margin: '0px 0px 10px 0px'
-              }}
-            >
-              Comunal
-            </p>
-
+          </ItemZone>
+          <ItemZone>
+            <LabelInput>Comunal</LabelInput>
             <Field
               type="checkbox"
               name="comunal"
@@ -102,31 +50,12 @@ const Zone = ({ errors, touched, values, handleChange }) => {
                 handleChange(val);
                 updateValFromStore('zone', val, 'comunal');
               }}
-              style={{
-                borderColor: errors?.floor && touched.floor ? 'red' : 'inherit',
-                marginBottom: 20
-              }}
+              style={{ marginBottom: 20 }}
               values={zone.comunal ? 'true' : 'false'}
             />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              width: '100%'
-            }}
-          >
-            <p
-              style={{
-                fontSize: 20,
-                margin: '0px 0px 10px 0px'
-              }}
-            >
-              Entertainment
-            </p>
-
+          </ItemZone>
+          <ItemZone>
+            <LabelInput>Entertainment</LabelInput>
             <Field
               type="checkbox"
               name="entertainment"
@@ -134,14 +63,11 @@ const Zone = ({ errors, touched, values, handleChange }) => {
                 handleChange(val);
                 updateValFromStore('zone', val, 'entertainment');
               }}
-              style={{
-                borderColor: errors?.floor && touched.floor ? 'red' : 'inherit',
-                marginBottom: 20
-              }}
+              style={{ marginBottom: 20 }}
               values={zone.entertainment ? 'true' : 'false'}
             />
-          </div>
-        </div>
+          </ItemZone>
+        </ContainerZone>
         <PreviousNextStep
           prev={FLOOR_FORM}
           nxt={PARKING_FORM}
@@ -150,9 +76,9 @@ const Zone = ({ errors, touched, values, handleChange }) => {
           value={'zone'}
           validate={() => {}}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 

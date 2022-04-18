@@ -2,6 +2,12 @@ export const floors = Array(51)
   .fill()
   .map((v, i) => i);
 
+export const items = Array(9)
+  .fill()
+  .map((v, i) => {
+    return { title: '' };
+  });
+
 export const options = ['No', 'Yes'];
 
 export const validateEmail = (value) => {

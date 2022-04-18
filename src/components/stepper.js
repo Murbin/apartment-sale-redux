@@ -1,25 +1,18 @@
 import Stepper from 'react-stepper-horizontal';
 import { selectActiveStep } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
+import { ContainerStepper } from '../assets/styles/style';
+import { items } from '../utils/helper';
 
 const Steps = () => {
   const activeStep = useSelector(selectActiveStep);
 
   return (
-    <div style={{ width: '100%' }}>
+    <ContainerStepper>
       <Stepper
-        steps={[
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' },
-          { title: '' }
-        ]}
+        steps={items}
+        size={25}
+        circleFontSize={13}
         activeStep={activeStep}
         activeColor={'#97e595'}
         completeColor={'#97e595'}
@@ -33,7 +26,7 @@ const Steps = () => {
         lineMarginOffset={0}
         defaultBorderWidth={0}
       />
-    </div>
+    </ContainerStepper>
   );
 };
 

@@ -9,6 +9,12 @@ import { useSelector } from 'react-redux';
 import { Field } from 'formik';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
+import {
+  ContainerMain,
+  ContainerInput,
+  LabelInput,
+  Error
+} from '../assets/styles/style';
 
 const Floor = ({ errors, handleChange, validateField }) => {
   const dispatch = useDispatch();
@@ -18,32 +24,9 @@ const Floor = ({ errors, handleChange, validateField }) => {
   const floor = useSelector(selectFloor);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          height: '100vh',
-          width: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <p
-          style={{
-            fontSize: 22,
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Floor
-        </p>
+    <ContainerMain>
+      <ContainerInput>
+        <LabelInput>Floor</LabelInput>
         <Field
           as="select"
           name="floor"
@@ -69,9 +52,7 @@ const Floor = ({ errors, handleChange, validateField }) => {
             <option key={idx}>{e}</option>
           ))}
         </Field>
-        {errors?.floor && (
-          <p style={{ margin: 0, color: 'red' }}>{errors?.floor}</p>
-        )}
+        {errors?.floor && <Error>{errors?.floor}</Error>}
         <PreviousNextStep
           prev={ADDRESS_FORM}
           nxt={ZONE_FORM}
@@ -80,9 +61,9 @@ const Floor = ({ errors, handleChange, validateField }) => {
           value={floor}
           validate={validateField}
         />
-      </div>
+      </ContainerInput>
       <Resume />
-    </div>
+    </ContainerMain>
   );
 };
 
