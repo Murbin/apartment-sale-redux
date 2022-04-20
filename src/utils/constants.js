@@ -1,5 +1,4 @@
 export const HOME = '/';
-export const WIZARD_FORM = '/form/*';
 export const NAME_FORM = '/client-name';
 export const EMAIL_FORM = '/client-email';
 export const ADDRESS_FORM = '/client-address';

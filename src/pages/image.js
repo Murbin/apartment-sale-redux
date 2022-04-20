@@ -1,21 +1,30 @@
 import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import {
-  selectImage,
-  updateImage
-} from '../features/profileSale/profileSaleSlice';
-import { PRICE_FORM, HAS_ELEVATOR_FORM } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
-import { ContainerMain, BackgroundDepartment } from '../assets/styles/style';
+import {
+  ContainerMain,
+  BackgroundDepartment,
+  LabelInput
+} from '../assets/styles/style';
 
-const Image = ({ errors, values, handleChange }) => {
+const Image = ({
+  name,
+  errors,
+  handleChange,
+  getData,
+  saveData,
+  previous,
+  next,
+  placeholder,
+  type
+}) => {
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
-    dispatch(updateImage({ key, val }));
+    dispatch(saveData({ key, val }));
   }, 250);
-  const image = useSelector(selectImage);
+  const data = useSelector(getData);
 
   const handleLoadLocalFile = (event) => {
     event.preventDefault();
@@ -27,30 +36,21 @@ const Image = ({ errors, values, handleChange }) => {
 
   return (
     <ContainerMain>
-      <BackgroundDepartment img={image}>
-        <p
-          style={{
-            fontSize: 22,
-            margin: '0px 0px 10px 0px'
-          }}
-        >
-          Click to load an image.
-        </p>
-
+      <BackgroundDepartment img={data}>
+        <LabelInput>{placeholder}</LabelInput>
         <input
-          name={'image'}
+          name={name}
           id="my-upload-btn"
-          type="file"
+          type={type}
           accept=".jpg, .jpeg, .png .svg"
           onChange={handleLoadLocalFile}
         />
-
         <PreviousNextStep
-          prev={PRICE_FORM}
-          nxt={HAS_ELEVATOR_FORM}
-          name={'image'}
+          prev={previous}
+          nxt={next}
+          name={name}
           errors={errors}
-          value={image}
+          value={data}
           validate={() => {}}
         />
       </BackgroundDepartment>

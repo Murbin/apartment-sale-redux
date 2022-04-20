@@ -2,18 +2,24 @@ import Generic from '../pages/generic';
 import GenericSelect from '../pages/genericSelect';
 import GenericCheckbox from '../pages/genericCheckbox';
 import Price from '../pages/price';
+import Home from '../pages/home';
+import Image from '../pages/image';
+import FinalReview from '../pages/finalReview';
 import * as ROUTES from '../utils/constants';
 import { floors, options } from '../utils/helper';
 import {
   updateVal,
   updateValSelect,
+  updateImage,
   selectName,
   selectEmail,
   selectAddress,
   selectFloor,
   selectZone,
   selectParking,
-  selectPrice
+  selectPrice,
+  selectImage,
+  selectHasElevator
 } from '../features/profileSale/profileSaleSlice';
 import { validateEmpty, validateEmail } from '../utils/helper';
 
@@ -22,6 +28,20 @@ export const Steps = {
     body: [
       {
         _uid: '0',
+        component: Home,
+        path: ROUTES.HOME,
+        name: 'home',
+        getData: undefined,
+        saveData: undefined,
+        previous: ROUTES.HAS_ELEVATOR_FORM,
+        next: ROUTES.NAME_FORM,
+        placeholder: 'Sell',
+        type: undefined,
+        validate: undefined,
+        description: 'BUTTON TO START SELL'
+      },
+      {
+        _uid: '1',
         component: Generic,
         path: ROUTES.NAME_FORM,
         name: 'username',
@@ -35,7 +55,7 @@ export const Steps = {
         description: 'REQUESTS THE NAME OF THE USER OWNER OF THE APARTMENT'
       },
       {
-        _uid: '1',
+        _uid: '2',
         component: Generic,
         path: ROUTES.EMAIL_FORM,
         name: 'email',
@@ -49,7 +69,7 @@ export const Steps = {
         description: 'REQUESTS THE EMAIL OF THE USER OWNER OF THE APARTMENT'
       },
       {
-        _uid: '2',
+        _uid: '3',
         component: Generic,
         path: ROUTES.ADDRESS_FORM,
         name: 'address',
@@ -63,7 +83,7 @@ export const Steps = {
         description: 'REQUESTS THE ADDRESS OF THE USER OWNER OF THE APARTMENT'
       },
       {
-        _uid: '3',
+        _uid: '4',
         component: GenericSelect,
         path: ROUTES.FLOOR_FORM,
         name: 'floor',
@@ -81,7 +101,7 @@ export const Steps = {
         items: [{ id: 1, section: 'floor', label: 'Floor', childName: '' }]
       },
       {
-        _uid: '4',
+        _uid: '5',
         component: GenericCheckbox,
         path: ROUTES.ZONE_FORM,
         name: 'zone',
@@ -101,7 +121,7 @@ export const Steps = {
         description: 'REQUESTS THE FLLOR OF THE APARTMENT'
       },
       {
-        _uid: '5',
+        _uid: '6',
         component: GenericSelect,
         path: ROUTES.PARKING_FORM,
         name: 'parking',
@@ -128,7 +148,7 @@ export const Steps = {
         ]
       },
       {
-        _uid: '6',
+        _uid: '7',
         component: Price,
         path: ROUTES.PRICE_FORM,
         name: 'price',
@@ -144,6 +164,68 @@ export const Steps = {
         choice: undefined,
         description: 'REQUESTS THE PRICE OF THE APARTMENT',
         subItem: undefined,
+        items: undefined
+      },
+      {
+        _uid: '8',
+        component: Image,
+        path: ROUTES.IMAGE_FORM,
+        name: 'image',
+        getData: selectImage,
+        saveData: updateImage,
+        child: undefined,
+        previous: ROUTES.PRICE_FORM,
+        next: ROUTES.HAS_ELEVATOR_FORM,
+        placeholder: 'Click to load an image',
+        type: 'file',
+        validate: undefined,
+        options: undefined,
+        choice: undefined,
+        description: 'REQUESTS THE IMAGE OF THE APARTMENT',
+        subItem: undefined,
+        items: undefined
+      },
+      {
+        _uid: '9',
+        component: GenericSelect,
+        path: ROUTES.HAS_ELEVATOR_FORM,
+        name: 'hasElevator',
+        getData: selectHasElevator,
+        saveData: updateVal,
+        previous: ROUTES.IMAGE_FORM,
+        next: ROUTES.RESUME,
+        placeholder: 'Has an elevator?',
+        type: 'select',
+        validate: validateEmpty,
+        options: options,
+        choice: null,
+        description: 'REQUESTS IF IT HAS ELEVATOR',
+        subItem: false,
+        items: [
+          {
+            id: 1,
+            section: 'hasElevator',
+            label: 'Does the apartment have an elevator?',
+            childName: ''
+          }
+        ]
+      },
+      {
+        _uid: '10',
+        component: FinalReview,
+        path: ROUTES.RESUME,
+        name: 'Final Resume',
+        getData: selectImage,
+        saveData: undefined,
+        previous: ROUTES.HAS_ELEVATOR_FORM,
+        next: ROUTES.HOME,
+        placeholder: undefined,
+        type: undefined,
+        validate: undefined,
+        options: undefined,
+        choice: undefined,
+        description: 'RESUME',
+        subItem: false,
         items: undefined
       }
     ]

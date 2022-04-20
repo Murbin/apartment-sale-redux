@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Button = ({ to }) => (
+const Button = ({ to, label }) => (
   <Link
     to={to}
     style={{
@@ -9,6 +9,7 @@ const Button = ({ to }) => (
       background: 'white',
       width: 100,
       padding: 7,
+      marginRight: 6,
       textDecoration: 'none',
       color: 'black',
       fontWeight: 'bold',
@@ -16,7 +17,7 @@ const Button = ({ to }) => (
       borderRadius: 20
     }}
   >
-    Finish
+    {label}
   </Link>
 );
 

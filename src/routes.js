@@ -1,11 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import * as ROUTES from '../src/utils/constants';
-import Home from './pages/home';
-import Image from './pages/image';
-import HasElevator from './pages/hasElevator';
-import FinalReview from './pages/finalReview';
+import { Routes, Route } from 'react-router-dom';
 import { Steps } from '../src/components/Steps';
 
 const RoutesForm = () => (
@@ -35,12 +30,6 @@ const RoutesForm = () => (
       return (
         <Form>
           <Routes>
-            <Route path={ROUTES.HOME} element={<Home />} />
-            <Route
-              path={ROUTES.WIZARD_FORM}
-              element={<Navigate replace to={ROUTES.NAME_FORM} />}
-            />
-            {/* From here three steps were refactored to a generic component from a json. It's not over due to time */}
             {Steps.content.body.map((e, key) => {
               return (
                 <Route
@@ -65,13 +54,6 @@ const RoutesForm = () => (
                 />
               );
             })}
-
-            <Route path={ROUTES.IMAGE_FORM} element={<Image {...props} />} />
-            <Route
-              path={ROUTES.HAS_ELEVATOR_FORM}
-              element={<HasElevator {...props} />}
-            />
-            <Route path={ROUTES.RESUME} element={<FinalReview />} />
           </Routes>
         </Form>
       );
