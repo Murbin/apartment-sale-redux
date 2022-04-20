@@ -34,9 +34,9 @@ const GenericCheckbox = ({
     <ContainerMain>
       <ContainerInput>
         <ContainerZone>
-          {options.map((e) => {
+          {options.map((e, key) => {
             return (
-              <ItemZone>
+              <ItemZone key={key}>
                 <LabelInput>{e.section}</LabelInput>
                 <Field
                   type={type}

@@ -3,8 +3,6 @@ import { Formik, Form } from 'formik';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import * as ROUTES from '../src/utils/constants';
 import Home from './pages/home';
-import Parking from './pages/parking';
-import Price from './pages/price';
 import Image from './pages/image';
 import HasElevator from './pages/hasElevator';
 import FinalReview from './pages/finalReview';
@@ -59,17 +57,15 @@ const RoutesForm = () => (
                     type: e.type,
                     validate: e.validate,
                     options: e.options,
-                    choice: e.choice
+                    choice: e.choice,
+                    child: e.child,
+                    subItem: e.subItem,
+                    items: e.items
                   })}
                 />
               );
             })}
 
-            <Route
-              path={ROUTES.PARKING_FORM}
-              element={<Parking {...props} />}
-            />
-            <Route path={ROUTES.PRICE_FORM} element={<Price {...props} />} />
             <Route path={ROUTES.IMAGE_FORM} element={<Image {...props} />} />
             <Route
               path={ROUTES.HAS_ELEVATOR_FORM}

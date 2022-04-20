@@ -61,7 +61,7 @@ export const configUSD = {
 };
 
 export const handleValidate = (e, setErrors) => {
-  console.log('e', e.target.value);
+  console.log(' handleValidate e', e.target.value);
   console.log('setErrors', setErrors);
   let numeric = e.target.value;
   let regex = /^-?\d+\.?\d*$/;

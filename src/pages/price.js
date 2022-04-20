@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { IMAGE_FORM, PARKING_FORM } from '../utils/constants';
 import {
   localStringToNumber,
   configUSD,
   handleValidate
 } from '../utils/helper';
 import { useDebouncedCallback } from 'use-debounce';
-import { updateVal } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
-import { selectPrice } from '../features/profileSale/profileSaleSlice';
 import { useSelector } from 'react-redux';
 import Resume from './resume';
 import PreviousNextStep from '../components/nextPreviousStep';
@@ -19,32 +16,42 @@ import {
   LabelInput,
   Error
 } from '../assets/styles/style';
+import { styleInput } from '../utils/helper';
 
-const Price = ({ errors, handleChange, validateField }) => {
+const Price = ({
+  name,
+  errors,
+  handleChange,
+  getData,
+  saveData,
+  previous,
+  next,
+  placeholder,
+  type
+}) => {
   const { setErrors } = useFormikContext();
   const dispatch = useDispatch();
   const updateValFromStore = useDebouncedCallback((key, val) => {
-    dispatch(updateVal({ key, val }));
-  }, 20);
-  const price = useSelector(selectPrice);
+    dispatch(saveData({ key, val }));
+  }, 10);
+  const data = useSelector(getData);
 
   useEffect(() => {
-    document.getElementById('coin').value = price
-      ? localStringToNumber(price).toLocaleString(undefined, configUSD)
+    document.getElementById('coin').value = data
+      ? localStringToNumber(data).toLocaleString(undefined, configUSD)
       : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onBlur = useDebouncedCallback((e) => {
-    handleValidate({ target: { value: price } }, setErrors);
-
-    e.target.value = price
-      ? localStringToNumber(price).toLocaleString(undefined, configUSD)
+    handleValidate({ target: { value: data } }, setErrors);
+    e.target.value = data
+      ? localStringToNumber(data).toLocaleString(undefined, configUSD)
       : '';
   }, 100);
 
   const onfocus = useDebouncedCallback((e) => {
-    e.target.value = price ? localStringToNumber(price) : '';
+    e.target.value = data ? localStringToNumber(data) : '';
   }, 50);
 
   return (
@@ -52,33 +59,25 @@ const Price = ({ errors, handleChange, validateField }) => {
       <ContainerInput>
         <LabelInput>Price</LabelInput>
         <input
-          placeholder="$100,000,000.00"
+          placeholder={placeholder}
           id="coin"
-          type="currency"
-          style={{
-            paddingLeft: 10,
-            height: 40,
-            fontSize: 20,
-            minWidth: 300,
-            borderRadius: 4,
-            borderColor: 'black'
-          }}
+          type={type}
+          style={styleInput}
           onChange={(val) => {
             handleChange(val);
-            updateValFromStore('price', val);
+            updateValFromStore(name, val);
           }}
           onFocus={(e) => onfocus(e)}
           onBlur={(e) => onBlur(e)}
         />
-
-        {errors?.price && <Error>{errors?.price}</Error>}
+        {errors[name] && <Error>{errors[name]}</Error>}
         <PreviousNextStep
-          prev={PARKING_FORM}
-          nxt={IMAGE_FORM}
-          name={'price'}
+          prev={previous}
+          nxt={next}
+          name={name}
           errors={errors}
-          value={price}
-          validate={validateField}
+          value={data}
+          validate={handleValidate}
         />
       </ContainerInput>
       <Resume />

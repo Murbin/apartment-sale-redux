@@ -1,15 +1,19 @@
 import Generic from '../pages/generic';
 import GenericSelect from '../pages/genericSelect';
 import GenericCheckbox from '../pages/genericCheckbox';
+import Price from '../pages/price';
 import * as ROUTES from '../utils/constants';
-import { floors } from '../utils/helper';
+import { floors, options } from '../utils/helper';
 import {
   updateVal,
+  updateValSelect,
   selectName,
   selectEmail,
   selectAddress,
   selectFloor,
-  selectZone
+  selectZone,
+  selectParking,
+  selectPrice
 } from '../features/profileSale/profileSaleSlice';
 import { validateEmpty, validateEmail } from '../utils/helper';
 
@@ -74,7 +78,7 @@ export const Steps = {
         choice: null,
         description: 'REQUESTS THE FLLOR OF THE APARTMENT',
         subItem: false,
-        items: ['has', 'covered']
+        items: [{ id: 1, section: 'floor', label: 'Floor', childName: '' }]
       },
       {
         _uid: '4',
@@ -95,27 +99,53 @@ export const Steps = {
         ],
         choice: null,
         description: 'REQUESTS THE FLLOR OF THE APARTMENT'
+      },
+      {
+        _uid: '5',
+        component: GenericSelect,
+        path: ROUTES.PARKING_FORM,
+        name: 'parking',
+        getData: selectParking,
+        saveData: updateValSelect,
+        child: true,
+        previous: ROUTES.ZONE_FORM,
+        next: ROUTES.PRICE_FORM,
+        placeholder: undefined,
+        type: 'select',
+        validate: validateEmpty,
+        options: options,
+        choice: null,
+        description: 'REQUESTS THE SECTIONS OF THE APARTMENT',
+        subItem: true,
+        items: [
+          { id: 0, section: 'has', label: 'Has Parking ?', childName: 'has' },
+          {
+            id: 1,
+            section: 'covered',
+            label: 'It is Covered ?',
+            childName: 'covered'
+          }
+        ]
+      },
+      {
+        _uid: '6',
+        component: Price,
+        path: ROUTES.PRICE_FORM,
+        name: 'price',
+        getData: selectPrice,
+        saveData: updateVal,
+        child: undefined,
+        previous: ROUTES.PARKING_FORM,
+        next: ROUTES.IMAGE_FORM,
+        placeholder: '$100,000,000.00',
+        type: 'currency',
+        validate: validateEmpty,
+        options: undefined,
+        choice: undefined,
+        description: 'REQUESTS THE PRICE OF THE APARTMENT',
+        subItem: undefined,
+        items: undefined
       }
-      // {
-      //   _uid: '5',
-      //   component: GenericSelect,
-      //   path: ROUTES.PARKING_FORM,
-      //   name: 'zone',
-      //   getData: selectZone,
-      //   saveData: updateVal,
-      //   previous: ROUTES.FLOOR_FORM,
-      //   next: ROUTES.PARKING_FORM,
-      //   placeholder: undefined,
-      //   type: 'checkbox',
-      //   validate: undefined,
-      //   options: [
-      //     { id: 0, section: 'bbq' },
-      //     { id: 1, section: 'comunal' },
-      //     { id: 1, section: 'entertainment' }
-      //   ],
-      //   choice: null,
-      //   description: 'REQUESTS THE SECTIONS OF THE APARTMENT'
-      // }
     ]
   }
 };

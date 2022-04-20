@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  activeStep: 0,
   saleStarted: false,
   username: '',
   email: '',
@@ -54,11 +53,7 @@ export const salesDataSlice = createSlice({
     updateValSelect(state, { payload: { key, val, child } }) {
       state[key][child] = val.target.value;
     },
-    nextStep(state, { payload: { activeStep } }) {
-      state[activeStep] = Number(state[activeStep]) + 1;
-    },
     stepCompleted(state, { payload: { stepsCompleted, name } }) {
-      console.log('state[key][child] ', state[stepsCompleted][name]);
       state[stepsCompleted][name] = true;
     },
     updateImage(state, { payload: { key, val } }) {
@@ -90,7 +85,6 @@ export const selectPrice = (state) => state.salesData.price;
 export const selectImage = (state) => state.salesData.image;
 export const selectHasElevator = (state) => state.salesData.hasElevator;
 export const selectResume = (state) => state.salesData;
-export const selectActiveStep = (state) => state.salesData.activeStep;
 export const selectStepsCompleted = (state) => state.salesData.stepsCompleted;
 
 export default salesDataSlice.reducer;

@@ -9,6 +9,7 @@ import {
   ContainerMain,
   ContainerInput,
   LabelInput,
+  ItemZone,
   Error
 } from '../assets/styles/style';
 import { styleSelect } from '../utils/helper';
@@ -24,43 +25,66 @@ const GenericSelect = ({
   next,
   type,
   validate,
-  options
+  options,
+  subItem,
+  items
 }) => {
   const dispatch = useDispatch();
-  const updateValFromStore = useDebouncedCallback((key, val) => {
-    dispatch(saveData({ key, val }));
+  const updateValFromStore = useDebouncedCallback((key, val, child) => {
+    dispatch(saveData({ key, val, child }));
   }, 250);
   const data = useSelector(getData);
-
+  console.log('errors', errors);
   return (
     <ContainerMain>
       <ContainerInput>
-        <LabelInput>Floor</LabelInput>
-        <Field
-          as={type}
-          name={name}
-          onChange={(val) => {
-            handleChange(val);
-            updateValFromStore(name, val);
-          }}
-          validate={validate}
-          style={styleSelect}
-          values={data}
-        >
-          <option disabled={data ? true : false} value={undefined}>
-            {type}
-          </option>
-          {options.map((e, idx) => (
-            <option key={idx}>{e}</option>
-          ))}
-        </Field>
-        {errors[name] && <Error>{errors[name]}</Error>}
+        {items.map((e, i) => {
+          return (
+            <ItemZone key={i}>
+              {e.childName === 'covered' && data.has !== 'Yes' ? (
+                <></>
+              ) : (
+                <>
+                  <LabelInput>{e.label}</LabelInput>
+                  <Field
+                    as={type}
+                    name={e.section}
+                    onChange={(val) => {
+                      handleChange(val);
+                      updateValFromStore(name, val, e.childName);
+                    }}
+                    validate={e.childName !== 'covered' && validate}
+                    style={styleSelect}
+                    values={subItem ? data[e.childName] : data}
+                  >
+                    <option
+                      disabled={
+                        subItem ? data[e.childName] : data ? true : false
+                      }
+                      value={undefined}
+                    >
+                      {type}
+                    </option>
+                    {options.map((e, idx) => (
+                      <option key={idx}>{e}</option>
+                    ))}
+                  </Field>
+                  {subItem
+                    ? errors[e.childName] && (
+                        <Error>{errors[e.childName]}</Error>
+                      )
+                    : errors[name] && <Error>{errors[name]}</Error>}
+                </>
+              )}
+            </ItemZone>
+          );
+        })}
         <PreviousNextStep
           prev={previous}
           nxt={next}
-          name={name}
+          name={subItem ? 'has' : name}
           errors={errors}
-          value={data}
+          value={subItem ? data.has : data}
           validate={validateField}
         />
       </ContainerInput>

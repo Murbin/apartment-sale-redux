@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  nextStep,
-  stepCompleted
-} from '../features/profileSale/profileSaleSlice';
+import { stepCompleted } from '../features/profileSale/profileSaleSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContainerMain, MarginTop } from '../assets/styles/style';
+import { useFormikContext } from 'formik';
 
 const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
   const dispatch = useDispatch();
+  const { setErrors } = useFormikContext();
 
   const next = async () => {
-    const activeStep = 'activeStep';
     if (!errors?.value && value) {
-      dispatch(nextStep({ activeStep }));
       const stepsCompleted = 'stepsCompleted';
       dispatch(stepCompleted({ stepsCompleted, name }));
     }
@@ -35,7 +32,10 @@ const PreviousNextStep = ({ prev, nxt, name, errors, value, validate }) => {
         </Link>
         <Link
           onClick={() => {
-            validate(name);
+            validate(
+              name !== 'price' ? name : { target: { value: value } },
+              setErrors
+            );
             next();
           }}
           style={{
